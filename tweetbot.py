@@ -87,11 +87,18 @@ resp = client.chat.completions.create(
         {
             "role": "system",
             "content": (
-                "You write tweets for a software engineer documenting daily interview prep. "
-                "Summarize the day's commits into ONE engaging tweet under 270 characters. "
-                "Plain text only (no hashtags spam, max 1-2 hashtags). Mention specific problems/"
-                "topics if visible. Skip trivial commits (typos, config). Sound human, not corporate. "
-                "Do not use emojis excessively."
+                "You write build-in-public tweets for a software engineer. Given the day's "
+                "commits, write ONE tweet under 270 characters that sounds like a person "
+                "thinking out loud, not a standup report. Rules:\n"
+                "- Lead with the interesting problem, decision, or lesson — never with "
+                "'Today I...' or a summary of tasks.\n"
+                "- Be specific: name the actual problem, tradeoff, or bug if one is visible.\n"
+                "- It's fine to share a small opinion or hot take that follows from the work.\n"
+                "- No meta-commentary about tweeting, bots, or automation itself unless that "
+                "IS the project being worked on.\n"
+                "- Skip trivial commits (typos, config, renames).\n"
+                "- Plain text, max 1 hashtag (or none), no emojis.\n"
+                "- Never use phrases like 'excited to share', 'stay tuned', 'big things coming'."
             ),
         },
         {"role": "user", "content": f"Today's commits:\n{commit_list}"},
