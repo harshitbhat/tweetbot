@@ -1,0 +1,28 @@
+name: Daily Commit Tweet
+
+on:
+  schedule:
+    - cron: "30 15 * * *"   # 9:00 PM IST (15:30 UTC) — change as you like
+  workflow_dispatch:          # lets you run it manually to test
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests openai tweepy
+
+      - name: Generate and post tweet
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TW_API_KEY: ${{ secrets.TW_API_KEY }}
+          TW_API_SECRET: ${{ secrets.TW_API_SECRET }}
+          TW_ACCESS_TOKEN: ${{ secrets.TW_ACCESS_TOKEN }}
+          TW_ACCESS_SECRET: ${{ secrets.TW_ACCESS_SECRET }}
+        run: python tweet_bot.py
