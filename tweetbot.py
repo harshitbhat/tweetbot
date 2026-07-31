@@ -79,6 +79,10 @@ for repo in repos:
 commit_list = "\n\n".join(commits)
 print(f"Found {len(commits)} commits, {total_chars:,} chars of diff")
 
+if not commits:
+    print("No commits in the last 24h — skipping tweet.")
+    raise SystemExit(0)
+
 # --- 2. Turn them into a tweet with OpenAI ---
 client = OpenAI(api_key=OPENAI_KEY)
 resp = client.chat.completions.create(
