@@ -41,6 +41,8 @@ def is_noise(filename):
 
 total_chars = 0
 for repo in repos:
+    if repo["name"] == "tweetbot":  # don't tweet about the bot's own commits
+        continue
     r = requests.get(
         f"https://api.github.com/repos/{repo['full_name']}/commits",
         headers=headers,
